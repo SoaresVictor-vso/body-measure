@@ -18,7 +18,7 @@ import { UserModule } from './app/user/user.module';
       password: process.env.DB_PASSWORD,
       host: process.env.DB_HOST,
       port: parseInt(process.env.DB_PORT),
-      synchronize: process.env.IS_DEV_ENV == '1',
+      synchronize: true || process.env.IS_DEV_ENV == '1',
       entities: [__dirname + '/**/*.entity{.js,.ts}']
     }),
     UserModule
