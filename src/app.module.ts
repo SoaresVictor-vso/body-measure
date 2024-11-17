@@ -21,8 +21,10 @@ import { DatabaseExceptionFilter } from './filters/database-exception.filters';
       password: process.env.DB_PASSWORD,
       host: process.env.DB_HOST,
       port: parseInt(process.env.DB_PORT),
-      synchronize: true || process.env.IS_DEV_ENV == '1',
-      entities: [__dirname + '/**/*.entity{.js,.ts}']
+      synchronize: false,
+      entities: [__dirname + '/**/*.entity{.js,.ts}'],
+      migrations: [__dirname + '/migration/*{.js,.ts}'],
+      migrationsRun: true
     }),
     UserModule,
     AuthModule
