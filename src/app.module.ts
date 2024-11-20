@@ -7,6 +7,7 @@ import { UserModule } from './app/user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { APP_FILTER } from '@nestjs/core';
 import { DatabaseExceptionFilter } from './filters/database-exception.filters';
+import { MetricModule } from './app/metric/metric.module';
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { DatabaseExceptionFilter } from './filters/database-exception.filters';
       migrationsRun: true
     }),
     UserModule,
-    AuthModule
+    AuthModule,
+    MetricModule
   ],
   controllers: [AppController],
   providers: [AppService, {
