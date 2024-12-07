@@ -8,6 +8,8 @@ import { AuthModule } from './auth/auth.module';
 import { APP_FILTER } from '@nestjs/core';
 import { DatabaseExceptionFilter } from './filters/database-exception.filters';
 import { MetricModule } from './app/metric/metric.module';
+import { MeasureModule } from './app/measure/measure.module';
+import { SessionModule } from './app/session/session.module';
 
 @Module({
   imports: [
@@ -29,7 +31,9 @@ import { MetricModule } from './app/metric/metric.module';
     }),
     UserModule,
     AuthModule,
-    MetricModule
+    MetricModule,
+    MeasureModule,
+    SessionModule
   ],
   controllers: [AppController],
   providers: [AppService, {
