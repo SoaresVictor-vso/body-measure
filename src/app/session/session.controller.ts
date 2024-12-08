@@ -8,22 +8,34 @@ import { SessionService } from './session.service';
 @UseGuards(AuthGuard('jwt'), RolesGuard)
 @Controller('api/v1/session')
 export class SessionController {
-    constructor (private readonly sessionService: SessionService) {}
+    constructor(private readonly sessionService: SessionService) { }
 
     @Get(':id')
     async getById(
-        @Param('id') idString: string
+        @Param('id') idString: string,
+        @Req() req: any
     ) {
+        console.log(req.user)
         const id = parseInt(idString);
-        return this.sessionService.get(id);
+        return this.sessionService.get(id, req.user.id);
     }
 
     @Roles(['adm'])
     @Get('user/:userId')
     async getByUser(
-        @Param('userId', new ParseUUIDPipe()) userId: string
+        @Param('userId', new ParseUUIDPipe()) userId: string,
     ) {
         return this.sessionService.getByUser(userId);
+    }
+
+    @Roles(['adm'])
+    @Get('user/:userId/:id')
+    async getByUserAndId(
+        @Param('userId', new ParseUUIDPipe()) userId: string,
+        @Param('id') idString?: string
+    ) {
+        const id = parseInt(idString);
+        return this.sessionService.get(id, userId);
     }
 
     @Get()
@@ -33,7 +45,7 @@ export class SessionController {
         return this.sessionService.getByUser(req.user.id);
     }
 
-    @Post() 
+    @Post()
     async create(@Body() body: CreateSessionDto, @Req() req: any) {
         return this.sessionService.create(body, req.user);
     }

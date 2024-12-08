@@ -1,7 +1,8 @@
 import { BadRequestException } from "@nestjs/common";
 import { MessageHelper } from "../../helpers/messages.helpers";
-import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { UserEntity } from "../user/user.entity";
+import { MeasureEntity } from "../measure/measure.entity";
 
 @Entity(`SESSIONS`)
 export class SessionEntity {
@@ -26,6 +27,9 @@ export class SessionEntity {
 
     @DeleteDateColumn({ name: 'deleted_at' })
     deletedAt: string;
+
+    @OneToMany((_type) => MeasureEntity, (measure) => measure.session)
+    measures: MeasureEntity[];
 
     @BeforeInsert()
     @BeforeUpdate() 

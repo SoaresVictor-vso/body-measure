@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { MeasureEntity } from "../measure/measure.entity";
 
 @Entity(`METRIC`)
 export class MetricEntity {
@@ -13,4 +14,7 @@ export class MetricEntity {
 
     @Column()
     unit: string;
+
+    @OneToMany(() => MeasureEntity, (measure) => measure.metric)
+    measures: MeasureEntity[];
 }

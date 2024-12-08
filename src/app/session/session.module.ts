@@ -6,9 +6,10 @@ import { UserModule } from '../user/user.module';
 import { MeasureModule } from '../measure/measure.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SessionEntity } from './session.entity';
+import { MeasureEntity } from '../measure/measure.entity';
 
 @Module({
-  imports: [UserModule, MeasureModule, TypeOrmModule.forFeature([SessionEntity])],
+  imports: [UserModule, MeasureModule, TypeOrmModule.forFeature([SessionEntity, MeasureEntity])],
   providers: [SessionService],
   controllers: [SessionController]
 })
