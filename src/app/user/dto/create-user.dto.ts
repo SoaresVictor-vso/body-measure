@@ -1,20 +1,21 @@
 import { IsEmail, IsNotEmpty, Matches } from "class-validator";
+import { MessageHelper } from "src/helpers/messages.helpers";
 import { RegExHelper } from "src/helpers/regex.helpers";
 
 export class CreateUserDto {
-    @IsNotEmpty({message: "O email deve ser informado."})
-    @IsEmail({}, {message: "O email informado não é válido."})
+    @IsNotEmpty({message: MessageHelper.EMPTY_FIELD('email')})
+    @IsEmail({}, {message: MessageHelper.EMAIL_FIELD('email')})
     email: string;
     
-    @IsNotEmpty()
-    @Matches(RegExHelper.name, {message: `O nome deve conter de 3 a 50 caracteres de A a Z e espaços.`})
+    @IsNotEmpty({message: MessageHelper.EMPTY_FIELD('name')})
+    @Matches(RegExHelper.name, {message: MessageHelper.ALPHABETIC_FIELD('name')})
     name: string;
     
-    @IsNotEmpty({message: `O campo senha não pode ser vazio.`})
-    @Matches(RegExHelper.password, {message: `A senha deve conter ao menos 8 caracteres, 1 letra maiúscula, 1 minúscula, um número e um caracter especial (#?!@$ %^&*-).`})
+    @IsNotEmpty({message: MessageHelper.EMPTY_FIELD('password')})
+    @Matches(RegExHelper.password, {message: MessageHelper.MATCHES('password', 'uppercase&lowercase&number&str(#|?|!|@|$| |%|^|&|*|-)')})
     password: string;
     
-    @IsNotEmpty({message: `O campo nome de usuário não pode ser vazio.`})
-    @Matches(RegExHelper.username, {message: `O nome de usuário deve ser formado por letras minúsculas, numeros, "_" e "."`})
+    @IsNotEmpty({message: MessageHelper.EMPTY_FIELD('username')})
+    @Matches(RegExHelper.username, {message: MessageHelper.MATCHES('username', 'lowercas|number|str(.|_)')})
     username: string;
 }
