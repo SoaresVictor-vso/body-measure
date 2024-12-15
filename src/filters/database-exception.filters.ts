@@ -1,4 +1,5 @@
 import { ExceptionFilter, Catch, ArgumentsHost, HttpStatus } from '@nestjs/common';
+import { MessageHelper } from 'src/helpers/messages.helpers';
 import { QueryFailedError } from 'typeorm';
 
 @Catch(QueryFailedError)
@@ -17,7 +18,7 @@ export class DatabaseExceptionFilter implements ExceptionFilter {
             const match = detail.match(/\((.*?)\)=\((.*?)\)/); // Expressão regular para extrair campo e valor
             const field = match ? match[1] : 'unknown field';
             const value = match ? match[2] : 'unknown value';
-            message = `Já existe um registro com mesmo ${field}.`;
+            message = MessageHelper.UNIQUENESS(field);
             catchedError = true;
         }
 

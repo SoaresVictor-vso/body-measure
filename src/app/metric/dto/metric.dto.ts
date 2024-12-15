@@ -12,6 +12,6 @@ export class MetricDto {
     description: string;
 
     @IsNotEmpty({ message: MessageHelper.EMPTY_FIELD('unit') })
-    @Matches(/^(g|mm)$/, {message: MessageHelper.MATCHES('unit', 'str(mm|g)')})
+    @Matches(/^(g|mm)$/, {message: MessageHelper.MATCHES('unit', '(mm|g)')})
     unit: string;
 }

@@ -10,11 +10,12 @@ const EMPTY_FIELD = (field: string) => `Invalid Value-${field}-notEmpty`;
 const ALPHANUMERIC_FIELD = (field: string) => `Invalid Value-${field}-only:uppercase,lowercase,numberany`;
 const ALPHABETIC_FIELD = (field: string) => `Invalid Value-${field}-only:uppercase,lowercase`;
 const INT_FIELD = (field: string) => `Invalid Value-${field}-only:numberint`;
-const DATE_FIELD = (field: string) => `Invalid Value-${field}-only:date`;
+const DATE_FIELD = (field: string) => `Invalid Value-${field}-type:date`;
 const ARRAY_FIELD = (field: string) => `Invalid Value-${field}-only:array`;
-const ISO_DATE_FIELD = (field: string) => `Invalid Value-${field}-only:date`;
-const EMAIL_FIELD = (field: string) => `Invalid Value-${field}-only:email`;
+const ISO_DATE_FIELD = (field: string) => `Invalid Value-${field}-type:date`;
+const EMAIL_FIELD = (field: string) => `Invalid Value-${field}-type:email`;
 const MATCHES = (field: string, matchPattern: string) => `Invalid Value-${field}-match:${matchPattern}`
+const UNIQUENESS = (field: string) => `Not Unique-${field}`;
 
 export const MessageHelper = {
     ALPHABETIC_FIELD,
@@ -26,5 +27,6 @@ export const MessageHelper = {
     EMPTY_FIELD,
     ISO_DATE_FIELD,
     INT_FIELD,
-    MATCHES
+    MATCHES,
+    UNIQUENESS
 }
