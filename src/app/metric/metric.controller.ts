@@ -14,7 +14,12 @@ export class MetricController {
     @Get()
     async getAll(@Req() req: any) {
         console.log(req.user)
-        return await this.metricService.findAll();
+        const data =  await this.metricService.findAll();
+        return {
+            data,
+            error: false,
+            statusCode: 200
+        }
     }
 
 

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseUUIDPipe, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, ParseUUIDPipe, Post, Query, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { RolesGuard } from 'src/common/guards/roles.guard';
@@ -15,34 +15,53 @@ export class SessionController {
         @Param('id') idString: string,
         @Req() req: any
     ) {
-        console.log(req.user)
         const id = parseInt(idString);
-        return this.sessionService.get(id, req.user.id);
+        return {
+            error: false,
+            data: await this.sessionService.get(id, req.user.id),
+            statusCode: 200
+        };
     }
 
     @Roles(['adm'])
     @Get('user/:userId')
     async getByUser(
         @Param('userId', new ParseUUIDPipe()) userId: string,
+        @Query() query: any
     ) {
-        return this.sessionService.getByUser(userId);
+        const { init, end, page } = query;
+        return {
+            error: false,
+            data: await this.sessionService.getByUser(userId, init, end, parseInt(page) || 0),
+            statusCode: 200
+        };
     }
 
     @Roles(['adm'])
     @Get('user/:userId/:id')
     async getByUserAndId(
         @Param('userId', new ParseUUIDPipe()) userId: string,
-        @Param('id') idString?: string
+        @Param('id') idString?: string,
     ) {
         const id = parseInt(idString);
-        return this.sessionService.get(id, userId);
+        return {
+            error: false,
+            data: await this.sessionService.get(id, userId),
+            statusCode: 200
+        };
     }
 
     @Get()
     async getMine(
-        @Req() req: any
+        @Req() req: any,
+        @Query() query: any
     ) {
-        return this.sessionService.getByUser(req.user.id);
+        const { init, end, page } = query;
+        return {
+            error: false,
+            data: await this.sessionService.getByUser(req.user.id, init, end, parseInt(page) || 0),
+            statusCode: 200
+        };
     }
 
     @Post()
