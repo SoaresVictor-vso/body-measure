@@ -9,15 +9,16 @@ export class SessionEntity {
     @PrimaryGeneratedColumn('increment')
     id: number;
 
-    @Column({name: 'user_id'})
+    @Column({ name: 'user_id' })
     userId: string;
 
     @ManyToOne(() => UserEntity, (user) => user.id)
-    @JoinColumn({name:'user_id'})
+    @JoinColumn({ name: 'user_id' })
     user: UserEntity;
 
-    @Column('date')
-    date: Date | string;
+    @Column({ name: 'date' })
+    date: string;
+
 
     @CreateDateColumn({ name: 'created_at' })
     createdAt: string;
@@ -32,13 +33,14 @@ export class SessionEntity {
     measures: MeasureEntity[];
 
     @BeforeInsert()
-    @BeforeUpdate() 
-    setDate()  {
+    @BeforeUpdate()
+    setDate() {
         const dt = new Date(this.date);
         console.log(dt, this.date)
-        if(!dt.getTime())
+        if (!dt.getTime())
             throw new BadRequestException(MessageHelper.DATE_FIELD(`data`));
 
-        this.date = dt;
+        this.date = dt.toISOString();
+        // this.dateString = dt.toISOString();
     }
 }

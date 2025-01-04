@@ -7,7 +7,7 @@ import { RegExHelper } from "src/helpers/regex.helpers";
 export class CreateSessionDto {
     @IsNotEmpty({message: MessageHelper.EMPTY_FIELD('date')})
     @Matches(RegExHelper.ISO_date, {message: MessageHelper.DATE_FIELD('date')})
-    date: Date;
+    date: string;
 
     @IsNotEmpty({message: MessageHelper.EMPTY_FIELD('measures')})
     @IsArray({message: MessageHelper.ARRAY_FIELD('measures')})

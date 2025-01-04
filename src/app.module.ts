@@ -10,6 +10,7 @@ import { DatabaseExceptionFilter } from './filters/database-exception.filters';
 import { MetricModule } from './app/metric/metric.module';
 import { MeasureModule } from './app/measure/measure.module';
 import { SessionModule } from './app/session/session.module';
+import { PingModule } from './app/ping/ping.module';
 
 @Module({
   imports: [
@@ -33,7 +34,8 @@ import { SessionModule } from './app/session/session.module';
     AuthModule,
     MetricModule,
     MeasureModule,
-    SessionModule
+    SessionModule,
+    PingModule
   ],
   controllers: [AppController],
   providers: [AppService, {
